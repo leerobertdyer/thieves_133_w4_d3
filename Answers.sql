@@ -32,11 +32,24 @@ WHERE customer_id IN(
 
 -- 4. List all customers that live in Nepal (use the city
 -- table)
+
 SELECT *
-FROM city
+FROM customer
+INNER JOIN address ON(
+    customer.address_id=address.address_id
+)
+INNER JOIN city ON(
+    address.city_id=city.city_id
+)
 INNER JOIN country ON(
     city.country_id=country.country_id
-)WHERE country.country='Nepal';
+)WHERE country='Nepal';
+
+--Added below to verify:
+SELECT *
+FROM country
+Where country_id=66;
+
 
 -- 5. Which staff member had the most
 -- transactions?
@@ -64,3 +77,12 @@ WHERE customer_id IN(
     FROM payment
     WHERE amount > 6.99
 );
+
+--8. How many free rentals did our store give away?
+--Didn't see this it was on a second page so when I selected all just didn't grab it lol
+
+SELECT *
+FROM payment
+WHERE amount = 0;
+
+--I'm guessing zero here. Unless the negative amounts mean something other than refunds...
